@@ -26,7 +26,8 @@ After that install `tint2`. Oh, forgot about `papirus` from the `AUR`.
 
 After that, replace the `xfwm4` folder for both themes in `/usr/share/themes`.
 
-user=whoami
+`user=whoami`
+
 Go to your `/home/$user/bin/` and place the `desktop-modes` and the `desktop-mode` inside.
 
 If you have `rofi` then go ahead and download the `.Xresources` and replace it with yours ( or the part which starts with rofi ).
