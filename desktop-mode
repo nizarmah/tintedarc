@@ -9,6 +9,9 @@ function setmode() {
 
 	cmode=$(</home/nizar/bin/desktop-modes/mode.txt)
 
+	tint2="/home/$user/.config/tint2/tint2rc"
+	xfceterminal="/home/$user/.config/xfce4/terminal/terminalrc"
+
 	if [ $1 = $cmode ]; then
 		echo "bash: desktop-mode: $1 already activated"
 	else
@@ -25,10 +28,14 @@ function setmode() {
 		xfconf-query -c xsettings -p /Net/ThemeName -s "${mode[1]}"
 		xfconf-query -c xfwm4 -p /general/theme -s "${mode[1]}"
 
-		cat "/home/$user/bin/desktop-modes/tint2/$1-mode.tint2rc" > "/home/$user/.config/tint2/tint2rc"
-		killall -SIGUSR1 tint2
+		if [ -f $tint2 ]; then
+			cat "/home/$user/bin/desktop-modes/tint2/$1-mode.tint2rc" > $tint2
+			killall -SIGUSR1 tint2
+		fi
 
-		cat "/home/$user/bin/desktop-modes/xfce4/$1-mode" > "/home/$user/.config/xfce4/terminal/terminalrc"
+		if [ -f $xfceterminal ]; then
+			cat "/home/$user/bin/desktop-modes/xfce4/$1-mode" > $xfceterminal
+		fi
 
 		echo "bash: desktop-mode: $1 mode activated"
 	fi
