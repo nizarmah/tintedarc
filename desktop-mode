@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# hai there ~ @nizarmah
+
+args=("$@")
+
+function setmode() {
+	user = whoami
+
+	cmode=$(</home/nizar/bin/desktop-modes/mode.txt)
+
+	if [ $1 = $cmode ]; then
+		echo "bash: desktop-mode: $1 already activated"
+	else
+		sed -i "s/$cmode/$1/g" /home/nizar/bin/desktop-modes/mode.txt
+		
+		mode=()
+
+		case $1 in
+			day) mode+=("Papirus" "OSX-Arc-White");;
+			night) mode+=("Papirus-Dark" "OSX-Arc-Shadow")
+		esac
+
+		xfconf-query -c xsettings -p /Net/IconThemeName -s "${mode[0]}"
+		xfconf-query -c xsettings -p /Net/ThemeName -s "${mode[1]}"
+		xfconf-query -c xfwm4 -p /general/theme -s "${mode[1]}"
+
+		cat "/home/$user/bin/desktop-modes/tint2/$1-mode.tint2rc" > "/home/$user/.config/tint2/tint2rc"
+		killall -SIGUSR1 tint2
+
+		cat "/home/$user/bin/desktop-modes/xfce4/$1-mode" > "/home/$user/.config/xfce4/terminal/terminalrc"
+
+		echo "bash: desktop-mode: $1 mode activated"
+	fi
+}
+
+if [ ${#args[@]} -eq 1 ]; then
+	if [ ${args[0]} = "-h" ] || [ ${args[0]} = "--help" ]; then
+		echo "Help Options:"
+		echo "  -h, --help            Show help options"
+		echo ""
+		echo "Desktop Modes:"
+		echo "  -D, --day             Enable day desktop mode"
+		echo "  -N, --night           Enable night desktop mode"
+	elif [ ${args[0]} = "-D" ] ||  [ ${args[0]} = "--day" ]; then
+		setmode "day"
+	elif [ ${args[0]} = "-N" ] || [ ${args[0]} = "--night" ]; then
+		setmode "night"
+	else 
+		echo "bash: desktop-mode: command not found"
+	fi
+else
+	echo "bash: desktop-mode: command not found"
+fi
