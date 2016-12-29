@@ -5,17 +5,15 @@
 args=("$@")
 
 function setmode() {
-	user = whoami
+	cmode=$(</home/$USER/bin/desktop-modes/mode.txt)
 
-	cmode=$(</home/nizar/bin/desktop-modes/mode.txt)
-
-	tint2="/home/$user/.config/tint2/tint2rc"
-	xfceterminal="/home/$user/.config/xfce4/terminal/terminalrc"
+	tint2="/home/$USER/.config/tint2/tint2rc"
+	xfceterminal="/home/$USER/.config/xfce4/terminal/terminalrc"
 
 	if [ $1 = $cmode ]; then
 		echo "bash: desktop-mode: $1 already activated"
 	else
-		sed -i "s/$cmode/$1/g" /home/nizar/bin/desktop-modes/mode.txt
+		sed -i "s/$cmode/$1/g" /home/$USER/bin/desktop-modes/mode.txt
 		
 		mode=()
 
@@ -29,12 +27,12 @@ function setmode() {
 		xfconf-query -c xfwm4 -p /general/theme -s "${mode[1]}"
 
 		if [ -f $tint2 ]; then
-			cat "/home/$user/bin/desktop-modes/tint2/$1-mode.tint2rc" > $tint2
+			cat "/home/$USER/bin/desktop-modes/tint2/$1-mode.tint2rc" > $tint2
 			killall -SIGUSR1 tint2
 		fi
 
 		if [ -f $xfceterminal ]; then
-			cat "/home/$user/bin/desktop-modes/xfce4/$1-mode" > $xfceterminal
+			cat "/home/$USER/bin/desktop-modes/xfce4/$1-mode" > $xfceterminal
 		fi
 
 		echo "bash: desktop-mode: $1 mode activated"
