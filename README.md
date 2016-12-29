@@ -2,6 +2,8 @@
 
 ![Desktop Mode In Action](https://fat.gfycat.com/RectangularSaltyComet.gif "Desktop Mode In Action")
 
+> Bash Script is not compatible with anything other than XFCE.
+
 I'm a freak that can't deal with linux unless it looks the way I want, so finally thought of sitting down and working on what I want.
 Wallpaper is between the files by the way.
 
