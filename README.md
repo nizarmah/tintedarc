@@ -16,6 +16,9 @@ What it's consisted out of is :
 However, the `osx-arc-shadow` is not left the way it is, but it's been tweaked.
 Download the zip, and after extracting it, replace the `.xpm`s with the `.png`s in `/usr/share/themes/OSX-Arc-Shadow/xfwm4/`.
 
+> Both Arc themes are uploaded since some users have had a hard time finding them
+> Those Arc themes are not mine and I take no credit for it, I just tweaked the `xfwm4` folder ( everything except the merc )
+
 Then close the xfce panel session and add tint2 to the startup applications.
 After importing the tint2 theme, you should be good to go!
 
