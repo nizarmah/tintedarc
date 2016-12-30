@@ -28,7 +28,9 @@ function setup() {
 			echo "bash: desktop-mode: Couldn't find OSX-Arc-Shadow"
 		fi
 	else
-		rm -R $shadow
+		if [ -d $shadow ]; then
+			rm -R $shadow
+		fi
 		echo "bash: desktop-mode: OSX-Arc-Shadow already present"
 	fi
 
@@ -40,7 +42,9 @@ function setup() {
 			echo "bash: desktop-mode: Couldn't find OSX-Arc-White"
 		fi
 	else
-		rm -R $white
+		if [ -d $white ]; then
+			rm -R $white
+		fi
 		echo "bash: desktop-mode: OSX-Arc-White already present"
 	fi
 
