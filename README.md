@@ -25,7 +25,7 @@ After importing the tint2 theme, you should be good to go!
 ### Installation
 
 All you need to do is download the repository.
-Then, place the files and folders into `/home/$USER/bin/`. Accordingly, run `desktop-mode --setup` and make sure that `OSX-Arc-Shadow` and `OSX-Arc-White` are in the same directory.
+Then, place the files and folders into `/home/$USER/bin/`. Accordingly, run `sudo desktop-mode --setup` and make sure that `OSX-Arc-Shadow` and `OSX-Arc-White` are in the same directory.
 Then, the script should auto install the required resources.
 
 Later on, if you care to use `rofi` or `tint2`, you can install them and upon installation, the script should automatically replace the configs with the script ones when run.

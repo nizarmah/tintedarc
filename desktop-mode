@@ -20,28 +20,28 @@ function setup() {
 	apapirus=false
 	apapirusdark=false
 
-	if [ -d $shadow ]; then
-		if [ ! -d $ushadow ]; then
+	if [ ! -d $ushadow ]; then
+		if [ -d $shadow ]; then
 			mv $shadow /usr/share/themes/
 			echo "bash: desktop-mode: Moved OSX-Arc-Shadow"
 		else
-			rm -R $shadow
-			echo "bash: desktop-mode: OSX-Arc-Shadow already present"
+			echo "bash: desktop-mode: Couldn't find OSX-Arc-Shadow"
 		fi
 	else
-		echo "bash: desktop-mode: Couldn't find OSX-Arc-Shadow"
+		rm -R $shadow
+		echo "bash: desktop-mode: OSX-Arc-Shadow already present"
 	fi
 
-	if [ -d $white ]; then
-		if [ ! -d $uwhite ]; then
+	if [ ! -d $uwhite ]; then
+		if [ -d $white ]; then
 			mv $white /usr/share/themes/
 			echo "bash: desktop-mode: Moved OSX-Arc-White"
 		else
-			rm -R $white
-			echo "bash: desktop-mode: OSX-Arc-White already present"
+			echo "bash: desktop-mode: Couldn't find OSX-Arc-White"
 		fi
 	else
-		echo "bash: desktop-mode: Couldn't find OSX-Arc-White"
+		rm -R $white
+		echo "bash: desktop-mode: OSX-Arc-White already present"
 	fi
 
 	if [ ! -d $upapirus ]; then
@@ -61,7 +61,7 @@ function setup() {
 	if [ $apapirus = true ] || [ $apapirusdark = true ]; then
 		read -p "Install the missing icons ? (y/n) " answer
 
-		if [ $answer = "y" ] || [ $answer = "Y" ]; then
+		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
 			mkdir papirus
 			git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git $path/papirus
 
