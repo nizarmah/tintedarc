@@ -4,6 +4,82 @@
 
 args=("$@")
 
+function setup() {
+	path=`pwd -P`
+
+	shadow="$path/OSX-Arc-Shadow/"
+		ushadow="/usr/share/themes/OSX-Arc-Shadow/"
+	white="$path/OSX-Arc-White/"
+		uwhite="/usr/share/themes/OSX-Arc-White/"
+
+	papirus="$path/.desktop-modes/Papirus/"
+		upapirus="/usr/share/icons/Papirus/"
+	papirusdark="$path/.desktop-modes/Papirus-Dark/"
+		upapirusdark="/usr/share/icons/Papirus-Dark/"
+
+	apapirus=false
+	apapirusdark=false
+
+	if [ -d $shadow ]; then
+		if [ ! -d $ushadow ]; then
+			mv $shadow /usr/share/themes/
+			echo "bash: desktop-mode: Moved OSX-Arc-Shadow"
+		else
+			rm -R $shadow
+			echo "bash: desktop-mode: OSX-Arc-Shadow already present"
+		fi
+	else
+		echo "bash: desktop-mode: Couldn't find OSX-Arc-Shadow"
+	fi
+
+	if [ -d $white ]; then
+		if [ ! -d $uwhite ]; then
+			mv $white /usr/share/themes/
+			echo "bash: desktop-mode: Moved OSX-Arc-White"
+		else
+			rm -R $white
+			echo "bash: desktop-mode: OSX-Arc-White already present"
+		fi
+	else
+		echo "bash: desktop-mode: Couldn't find OSX-Arc-White"
+	fi
+
+	if [ ! -d $upapirus ]; then
+		apapirus=true
+		echo "bash: desktop-mode: Papirus is missing"
+	else
+		echo "bash: desktop-mode: Papirus already present"
+	fi
+
+	if [ ! -d $upapirusdark ]; then
+		apapirusdark=true
+		echo "bash: desktop-mode: Papirus-Dark is missing"
+	else
+		echo "bash: desktop-mode: Papirus-Dark already present"
+	fi
+
+	if [ $apapirus = true ] || [ $apapirusdark = true ]; then
+		read -p "Install the missing icons ? (y/n) " answer
+
+		if [ $answer = "y" ] || [ $answer = "Y" ]; then
+			mkdir papirus
+			git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git $path/papirus
+
+			if [ $apapirus = true ]; then
+				mv $path/papirus/Papirus/ /usr/share/icons/
+				echo "bash: desktop-mode: Installed Papirus"
+			fi
+
+			if [ $apapirusdark = true ]; then
+				mv $path/papirus/Papirus-Dark/ /usr/share/icons/
+				echo "bash: desktop-mode: Installed Papirus-Dark"
+			fi
+
+			rm -R $path/papirus
+		fi
+	fi
+}
+
 function setmode() {
 	cmode=$(</home/$USER/bin/desktop-modes/mode.txt)
 
@@ -44,6 +120,9 @@ if [ ${#args[@]} -eq 1 ]; then
 		echo "Help Options:"
 		echo "  -h, --help            Show help options"
 		echo ""
+		echo "Setup Options:"
+		echo "  -S, --setup           Setup required resources"
+		echo ""
 		echo "Desktop Modes:"
 		echo "  -D, --day             Enable day desktop mode"
 		echo "  -N, --night           Enable night desktop mode"
@@ -51,6 +130,12 @@ if [ ${#args[@]} -eq 1 ]; then
 		setmode "day"
 	elif [ ${args[0]} = "-N" ] || [ ${args[0]} = "--night" ]; then
 		setmode "night"
+	elif [ ${args[0]} = "-S" ] || [ ${args[0]} = "--setup" ]; then
+		if [ $USER = "root" ]; then
+			setup
+		else
+			echo "bash: desktop-mode: run this as root"
+		fi
 	else 
 		echo "bash: desktop-mode: command not found"
 	fi

@@ -24,18 +24,14 @@ After importing the tint2 theme, you should be good to go!
 
 ### Installation
 
-All you have to do is get the `osx-arc-shadow` and `osx-arc-white` from `AUR`.
-After that install `tint2`. Oh, forgot about `papirus` from the `AUR`.
+All you need to do is download the repository.
+Then, place the files and folders into `/home/$USER/bin/`. Accordingly, run `desktop-mode --setup` and make sure that `OSX-Arc-Shadow` and `OSX-Arc-White` are in the same directory.
+Then, the script should auto install the required resources.
 
-After that, replace the `xfwm4` folder for both themes in `/usr/share/themes`.
-
-`user=whoami`
-
-Go to your `/home/$user/bin/` and place the `desktop-modes` and the `desktop-mode` inside.
+Later on, if you care to use `rofi` or `tint2`, you can install them and upon installation, the script should automatically replace the configs with the script ones when run.
 
 If you have `rofi` then go ahead and download the `.Xresources` and replace it with yours ( or the part which starts with rofi ).
 After that make sure to type in terminal `xrdb ~/.Xresources`.
-
 Later on, run `chmod +x ~/bin/desktop-mode` in terminal...
 `desktop-mode --help` and you should be ready to go.
 
@@ -45,5 +41,6 @@ Enjoy :)
 
 > If you can clean up my `desktop-mode` script please do. I'm just an amateur.
 
+![Preview Desktop Setup](preview/desktop-setup-preview.jpg "Preview Desktop Setup")
 ![Preview Day Mode](preview/day-mode-preview.jpg "Preview Day Mode")
 ![Preview Night Mode](preview/night-mode-preview.jpg "Preview Night Mode")
