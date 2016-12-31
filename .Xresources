@@ -21,7 +21,7 @@ XTerm*pointerColor: #16A085
 XTerm*faceName: Fixed
 XTerm*faceSize: 11
 
-rofi.font:              SFNS Display 18
+rofi.font:              San Francisco Display 18
 rofi.location:          0
 rofi.color-enabled:     true
 rofi.color-window:      argb:B3000000, argb:B3000000, argb:E6ffffff
