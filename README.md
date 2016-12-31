@@ -12,6 +12,7 @@ What it's consisted out of is :
  - [OSX Arc White](https://aur.archlinux.org/packages/osx-arc-white/)
  - [Tint2 Panel](https://wiki.archlinux.org/index.php/tint2)
  - [Papirus Icon](https://aur.archlinux.org/packages/papirus/)
+ - [San Francisco](https://github.com/AppleDesignResources/SanFranciscoFont)
 
 However, the `osx-arc-shadow` is not left the way it is, but it's been tweaked.
 Download the zip, and after extracting it, replace the `.xpm`s with the `.png`s in `/usr/share/themes/OSX-Arc-Shadow/xfwm4/`.

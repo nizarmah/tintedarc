@@ -82,6 +82,24 @@ function setup() {
 			rm -R $path/papirus
 		fi
 	fi
+
+	if [ ! -f "/usr/share/fonts/OTF/SanFranciscoDisplay-Regular.otf" ]; then
+		echo "bash: desktop-mode: San Francisco Display font is missing"
+
+		read -p "Install the missing font ? (y/n) " answer
+
+		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
+			mkdir sanfranfont
+			git clone https://github.com/AppleDesignResources/SanFranciscoFont.git $path/sanfranfont
+
+			mv $path/sanfranfont/* /usr/share/fonts/OTF/
+			echo "bash: desktop-mode: Installed San Francisco Display font"
+
+			rm -R $path/sanfranfont
+		fi
+	else
+		echo "bash: desktop-mode: San Francisco Display font already present"
+	fi
 }
 
 function setmode() {
