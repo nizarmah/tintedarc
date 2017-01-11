@@ -217,7 +217,7 @@ if [ ${#args[@]} -eq 1 ]; then
 		else
 			echo "bash: desktop-mode: run this as root"
 		fi
-	elif [ ${args[0]} = "-U" ] || [ ${args[0]} = "--uninstall" ]; then
+	elif [ ${args[0]} = "-R" ] || [ ${args[0]} = "--remove" ]; then
 		if [ $USER = "root" ]; then
 			uninstall
 		else
