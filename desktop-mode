@@ -63,7 +63,7 @@ function setup() {
 	fi
 
 	if [ $apapirus = true ] || [ $apapirusdark = true ]; then
-		read -p "Install the missing icons ? (y/n) " answer
+		read -p "bash: desktop-mode: Install the missing icons ? (y/n) " answer
 
 		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
 			mkdir papirus
@@ -84,21 +84,79 @@ function setup() {
 	fi
 
 	if [ ! -f "/usr/share/fonts/OTF/SanFranciscoDisplay-Regular.otf" ]; then
-		echo "bash: desktop-mode: San Francisco Display font is missing"
+		echo "bash: desktop-mode: San Francisco Display is missing"
 
-		read -p "Install the missing font ? (y/n) " answer
+		read -p "bash: desktop-mode: Install the missing font ? (y/n) " answer
 
 		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
 			mkdir sanfranfont
 			git clone https://github.com/AppleDesignResources/SanFranciscoFont.git $path/sanfranfont
 
 			mv $path/sanfranfont/* /usr/share/fonts/OTF/
-			echo "bash: desktop-mode: Installed San Francisco Display font"
+			echo "bash: desktop-mode: Installed San Francisco Display"
 
 			rm -R $path/sanfranfont
 		fi
 	else
-		echo "bash: desktop-mode: San Francisco Display font already present"
+		echo "bash: desktop-mode: San Francisco Display already present"
+	fi
+}
+
+function uninstall() {
+	papirus=("Papirus" "Papirus-Dark")
+	arcs=("OSX-Arc-Shadow" "OSX-Arc-White")
+	sanfran=("SanFranciscoDisplay-Bold.otf" "SanFranciscoDisplay-Heavy.otf" "SanFranciscoDisplay-Light.otf" "SanFranciscoDisplay-Medium.otf" "SanFranciscoDisplay-Regular.otf" "SanFranciscoDisplay-Semibold.otf" "SanFranciscoDisplay-Thin.otf" "SanFranciscoDisplay-Ultralight.otf" "SanFranciscoText-Bold.otf" "SanFranciscoText-BoldItalic.otf" "SanFranciscoText-Heavy.otf" "SanFranciscoText-HeavyItalic.otf" "SanFranciscoText-Light.otf" "SanFranciscoText-LightItalic.otf" "SanFranciscoText-Medium.otf" "SanFranciscoText-MediumItalic.otf" "SanFranciscoText-Regular.otf" "SanFranciscoText-RegularItalic.otf" "SanFranciscoText-Semibold.otf" "SanFranciscoText-SemiboldItalic.otf")
+
+	path=`pwd -P`
+
+	ushadow="/usr/share/themes/OSX-Arc-Shadow/"
+	uwhite="/usr/share/themes/OSX-Arc-White/"
+
+	upapirus="/usr/share/icons/Papirus/"
+	upapirusdark="/usr/share/icons/Papirus-Dark/"
+
+	if [ ! -f "/usr/share/fonts/OTF/SanFranciscoDisplay-Regular.otf" ]; then
+		echo "bash: desktop-mode: San Francisco Display already uninstalled"
+	else
+		for i in "${!sanfran[@]}"; do
+			rm /usr/share/fonts/OTF/${sanfran[$i]}
+
+			if [ $((i+1)) -eq ${#sanfran[@]} ]; then
+				echo "bash: desktop-mode: Removed San Francisco Display"
+			fi
+		done
+	fi
+
+	if [ ! -d $upapirus ]; then
+		echo "bash: desktop-mode: Papirus is already uninstalled"
+	else
+		rm -rf /usr/share/icons/${papirus[0]}
+
+		echo "bash: desktop-mode: Removed ${papirus[0]}"
+	fi
+
+	if [ ! -d $upapirusdark ]; then
+		echo "bash: desktop-mode: Papirus-Dark is already uninstalled"
+	else
+		rm -rf /usr/share/icons/${papirus[1]}
+
+		echo "bash: desktop-mode: Removed ${papirus[1]}"
+	fi
+
+	if [ ! -d $ushadow ]; then
+		echo "bash: desktop-mode: OSX-Arc-Shadow is already uninstalled"
+	else
+		rm -rf /usr/share/themes/${arcs[0]}
+
+		echo "bash: desktop-mode: Removed ${arcs[0]}"
+	fi
+
+	if [ ! -d $uwhite ]; then
+		echo "bash: desktop-mode: OSX-Arc-White is already uninstalled"
+	else
+		rm -rf /usr/share/themes/${arcs[1]}
+
+		echo "bash: desktop-mode: Removed ${arcs[1]}"
 	fi
 }
 
@@ -144,6 +202,7 @@ if [ ${#args[@]} -eq 1 ]; then
 		echo ""
 		echo "Setup Options:"
 		echo "  -S, --setup           Setup required resources"
+		echo "  -R, --remove          Remove all required resources"
 		echo ""
 		echo "Desktop Modes:"
 		echo "  -D, --day             Enable day desktop mode"
@@ -155,6 +214,12 @@ if [ ${#args[@]} -eq 1 ]; then
 	elif [ ${args[0]} = "-S" ] || [ ${args[0]} = "--setup" ]; then
 		if [ $USER = "root" ]; then
 			setup
+		else
+			echo "bash: desktop-mode: run this as root"
+		fi
+	elif [ ${args[0]} = "-U" ] || [ ${args[0]} = "--uninstall" ]; then
+		if [ $USER = "root" ]; then
+			uninstall
 		else
 			echo "bash: desktop-mode: run this as root"
 		fi
