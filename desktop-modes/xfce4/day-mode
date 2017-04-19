@@ -4,7 +4,7 @@ MiscBell=FALSE
 MiscBordersDefault=TRUE
 MiscCursorBlinks=TRUE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_UNDERLINE
-MiscDefaultGeometry=80x24
+MiscDefaultGeometry=84x28
 MiscInheritGeometry=FALSE
 MiscMenubarDefault=TRUE
 MiscMouseAutohide=FALSE
@@ -32,4 +32,4 @@ ColorBold=#546E7A
 ColorBoldUseDefault=FALSE
 ColorPalette=rgb(47,52,63);rgb(239,83,80);rgb(156,204,101);rgb(255,202,40);rgb(41,182,246);rgb(171,71,188);rgb(38,166,154);rgb(255,255,255);rgb(7,54,66);rgb(229,57,53);rgb(67,160,71);rgb(255,160,0);rgb(3,155,229);rgb(142,36,170);rgb(0,137,123);rgb(120,144,156)
 TabActivityColor=#72729f9fcfcf
-
+FontName=Monospace 10
