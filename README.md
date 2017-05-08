@@ -42,6 +42,5 @@ Enjoy :)
 
 > If you can clean up my `desktop-mode` script please do. I'm just an amateur.
 
-![Preview Desktop Setup](preview/desktop-setup-preview.jpg "Preview Desktop Setup")
-![Preview Day Mode](preview/day-mode-preview.jpg "Preview Day Mode")
-![Preview Night Mode](preview/night-mode-preview.jpg "Preview Night Mode")
+![Preview Day Mode](preview/day-mode-preview.png "Preview Day Mode")
+![Preview Night Mode](preview/night-mode-preview.png "Preview Night Mode")
