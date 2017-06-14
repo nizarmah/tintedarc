@@ -23,47 +23,47 @@ function setup() {
 	if [ ! -d $ushadow ]; then
 		if [ -d $shadow ]; then
 			mv $shadow /usr/share/themes/
-			echo "bash: desktop-mode: Moved OSX-Arc-Shadow"
+			echo "Moved OSX-Arc-Shadow"
 		else
-			echo "bash: desktop-mode: Couldn't find OSX-Arc-Shadow"
+			echo "Couldn't find OSX-Arc-Shadow"
 		fi
 	else
 		if [ -d $shadow ]; then
 			rm -R $shadow
 		fi
-		echo "bash: desktop-mode: OSX-Arc-Shadow already present"
+		echo "OSX-Arc-Shadow already present"
 	fi
 
 	if [ ! -d $uwhite ]; then
 		if [ -d $white ]; then
 			mv $white /usr/share/themes/
-			echo "bash: desktop-mode: Moved OSX-Arc-White"
+			echo "Moved OSX-Arc-White"
 		else
-			echo "bash: desktop-mode: Couldn't find OSX-Arc-White"
+			echo "Couldn't find OSX-Arc-White"
 		fi
 	else
 		if [ -d $white ]; then
 			rm -R $white
 		fi
-		echo "bash: desktop-mode: OSX-Arc-White already present"
+		echo "OSX-Arc-White already present"
 	fi
 
 	if [ ! -d $upapirus ]; then
 		apapirus=true
-		echo "bash: desktop-mode: Papirus is missing"
+		echo "Papirus is missing"
 	else
-		echo "bash: desktop-mode: Papirus already present"
+		echo "Papirus already present"
 	fi
 
 	if [ ! -d $upapirusdark ]; then
 		apapirusdark=true
-		echo "bash: desktop-mode: Papirus-Dark is missing"
+		echo "Papirus-Dark is missing"
 	else
-		echo "bash: desktop-mode: Papirus-Dark already present"
+		echo "Papirus-Dark already present"
 	fi
 
 	if [ $apapirus = true ] || [ $apapirusdark = true ]; then
-		read -p "bash: desktop-mode: Install the missing icons ? (y/n) " answer
+		read -p "Install the missing icons ? (y/n) " answer
 
 		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
 			mkdir papirus
@@ -71,12 +71,12 @@ function setup() {
 
 			if [ $apapirus = true ]; then
 				mv $path/papirus/Papirus/ /usr/share/icons/
-				echo "bash: desktop-mode: Installed Papirus"
+				echo "Installed Papirus"
 			fi
 
 			if [ $apapirusdark = true ]; then
 				mv $path/papirus/Papirus-Dark/ /usr/share/icons/
-				echo "bash: desktop-mode: Installed Papirus-Dark"
+				echo "Installed Papirus-Dark"
 			fi
 
 			rm -R $path/papirus
@@ -84,21 +84,21 @@ function setup() {
 	fi
 
 	if [ ! -f "/usr/share/fonts/OTF/SanFranciscoDisplay-Regular.otf" ]; then
-		echo "bash: desktop-mode: San Francisco Display is missing"
+		echo "San Francisco Display is missing"
 
-		read -p "bash: desktop-mode: Install the missing font ? (y/n) " answer
+		read -p "Install the missing font ? (y/n) " answer
 
 		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
 			mkdir sanfranfont
 			git clone https://github.com/AppleDesignResources/SanFranciscoFont.git $path/sanfranfont
 
 			mv $path/sanfranfont/* /usr/share/fonts/OTF/
-			echo "bash: desktop-mode: Installed San Francisco Display"
+			echo "Installed San Francisco Display"
 
 			rm -R $path/sanfranfont
 		fi
 	else
-		echo "bash: desktop-mode: San Francisco Display already present"
+		echo "San Francisco Display already present"
 	fi
 }
 
@@ -116,47 +116,47 @@ function uninstall() {
 	upapirusdark="/usr/share/icons/Papirus-Dark/"
 
 	if [ ! -f "/usr/share/fonts/OTF/SanFranciscoDisplay-Regular.otf" ]; then
-		echo "bash: desktop-mode: San Francisco Display already uninstalled"
+		echo "San Francisco Display already uninstalled"
 	else
 		for i in "${!sanfran[@]}"; do
 			rm /usr/share/fonts/OTF/${sanfran[$i]}
 
 			if [ $((i+1)) -eq ${#sanfran[@]} ]; then
-				echo "bash: desktop-mode: Removed San Francisco Display"
+				echo "Removed San Francisco Display"
 			fi
 		done
 	fi
 
 	if [ ! -d $upapirus ]; then
-		echo "bash: desktop-mode: Papirus is already uninstalled"
+		echo "Papirus is already uninstalled"
 	else
 		rm -rf /usr/share/icons/${papirus[0]}
 
-		echo "bash: desktop-mode: Removed ${papirus[0]}"
+		echo "Removed ${papirus[0]}"
 	fi
 
 	if [ ! -d $upapirusdark ]; then
-		echo "bash: desktop-mode: Papirus-Dark is already uninstalled"
+		echo "Papirus-Dark is already uninstalled"
 	else
 		rm -rf /usr/share/icons/${papirus[1]}
 
-		echo "bash: desktop-mode: Removed ${papirus[1]}"
+		echo "Removed ${papirus[1]}"
 	fi
 
 	if [ ! -d $ushadow ]; then
-		echo "bash: desktop-mode: OSX-Arc-Shadow is already uninstalled"
+		echo "OSX-Arc-Shadow is already uninstalled"
 	else
 		rm -rf /usr/share/themes/${arcs[0]}
 
-		echo "bash: desktop-mode: Removed ${arcs[0]}"
+		echo "Removed ${arcs[0]}"
 	fi
 
 	if [ ! -d $uwhite ]; then
-		echo "bash: desktop-mode: OSX-Arc-White is already uninstalled"
+		echo "OSX-Arc-White is already uninstalled"
 	else
 		rm -rf /usr/share/themes/${arcs[1]}
 
-		echo "bash: desktop-mode: Removed ${arcs[1]}"
+		echo "Removed ${arcs[1]}"
 	fi
 }
 
@@ -167,7 +167,7 @@ function setmode() {
 	xfceterminal="/home/$USER/.config/xfce4/terminal/terminalrc"
 
 	if [ $1 = $cmode ]; then
-		echo "bash: desktop-mode: $1 already activated"
+		echo "$1 already activated"
 	else
 		sed -i "s/$cmode/$1/g" /home/$USER/bin/desktop-modes/mode.txt
 		
@@ -191,7 +191,7 @@ function setmode() {
 			cat "/home/$USER/bin/desktop-modes/xfce4/$1-mode" > $xfceterminal
 		fi
 
-		echo "bash: desktop-mode: $1 mode activated"
+		echo "$1 mode activated"
 	fi
 }
 
@@ -215,17 +215,17 @@ if [ ${#args[@]} -eq 1 ]; then
 		if [ $USER = "root" ]; then
 			setup
 		else
-			echo "bash: desktop-mode: run this as root"
+			echo "run this as root"
 		fi
 	elif [ ${args[0]} = "-R" ] || [ ${args[0]} = "--remove" ]; then
 		if [ $USER = "root" ]; then
 			uninstall
 		else
-			echo "bash: desktop-mode: run this as root"
+			echo "run this as root"
 		fi
 	else 
-		echo "bash: desktop-mode: command not found"
+		echo "command not found"
 	fi
 else
-	echo "bash: desktop-mode: command not found"
+	echo "command not found"
 fi
