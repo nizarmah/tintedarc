@@ -26,7 +26,6 @@ rofi.location:          0
 rofi.color-enabled:     true
 rofi.color-window:      argb:B3000000, argb:B3000000, argb:E6ffffff
 rofi.color-normal:      argb:00000000, argb:90FFFFFF, argb:00000000, argb:00000000, argb:FFFFFFFF 
-!ffe1a3ee
 rofi.color-urgent:      argb:00282a2e, argb:90FFFFFF, argb:00282a2e, argb:00000000, argb:ffcc6666
 rofi.color-active:      argb:00282a2e, argb:90FFFFFF, argb:00282a2e, argb:00000000, argb:ff81a2be
 rofi.separator-style:   solid
