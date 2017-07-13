@@ -26,14 +26,17 @@ After importing the tint2 theme, you should be good to go!
 ### Installation
 
 All you need to do is download the repository.
-Then, place the files and folders into `/usr/bin/`. Later on, run `sudo chmod +x /usr/bin/desktop-mode` in terminal... Accordingly, run `sudo desktop-mode --setup` and make sure that `OSX-Arc-Shadow` and `OSX-Arc-White` are in the same directory.
-Then, the script should auto install the required resources.
+Next, you'll need to open the terminal in the folder named `tintedarc`.
+Then, run `sudo chmod +x ./desktop-mode` in terminal... Accordingly, run `sudo ./desktop-mode --setup` and make sure that `OSX-Arc-Shadow` and `OSX-Arc-White` are in the same directory.
+Then, the script should auto install the required resources and move the script and files to the necessary places.
+> If `sudo ./desktop-mode --setup` fails, try `sudo -s ./desktop-mode --setup`!
 
 Later on, if you care to use `rofi` or `tint2`, you can install them and upon installation, the script should automatically replace the configs with the script ones when run.
 
 If you have `rofi` then go ahead and download the `.Xresources` and replace it with yours ( or the part which starts with rofi ).
 After that make sure to type in terminal `xrdb ~/.Xresources`.
 
+Since the script moved `desktop-mode` script, then you can just do `desktop-mode` in the terminal now.
 To enable the theme you wish, just type `desktop-mode --day` or `desktop-mode --night`.
 
 Enjoy :)

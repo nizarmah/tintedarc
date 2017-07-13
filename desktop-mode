@@ -5,20 +5,51 @@
 args=("$@")
 
 function setup() {
-	path=`pwd -P`
+	dmscript="$PWD/desktop-mode"
+		udmscript="/usr/bin/desktop-mode"
+	dmfiles="$PWD/.desktop-modes/"
+		udmfiles="/home/$SUDO_USER/.desktop-modes/"
 
-	shadow="$path/OSX-Arc-Shadow/"
+	shadow="$PWD/OSX-Arc-Shadow/"
 		ushadow="/usr/share/themes/OSX-Arc-Shadow/"
-	white="$path/OSX-Arc-White/"
+	white="$PWD/OSX-Arc-White/"
 		uwhite="/usr/share/themes/OSX-Arc-White/"
 
-	papirus="$path/.desktop-modes/Papirus/"
+	papirus="$PWD/.desktop-modes/Papirus/"
 		upapirus="/usr/share/icons/Papirus/"
-	papirusdark="$path/.desktop-modes/Papirus-Dark/"
+	papirusdark="$PWD/.desktop-modes/Papirus-Dark/"
 		upapirusdark="/usr/share/icons/Papirus-Dark/"
 
 	apapirus=false
 	apapirusdark=false
+
+	if [ ! -f $udmscript ]; then
+		if [ -f $dmscript ]; then
+			mv $dmscript /usr/bin/
+			echo "Moved Desktop Mode script"
+		else
+			echo "Couldn't find Desktop Mode script"
+		fi
+	else
+		if [ -f $dmscript ]; then
+			rm -R $dmscript
+		fi
+		echo "Desktop Mode script already present"
+	fi
+
+	if [ ! -d $udmfiles ]; then
+		if [ -d $dmfiles ]; then
+			mv $dmfiles /home/$SUDO_USER/
+			echo "Moved Desktop Mode files"
+		else
+			echo "Couldn't find Desktop Mode files"
+		fi
+	else
+		if [ -d $dmfiles ]; then
+			rm -R $dmfiles
+		fi
+		echo "Desktop Mode files already present"
+	fi
 
 	if [ ! -d $ushadow ]; then
 		if [ -d $shadow ]; then
@@ -67,19 +98,19 @@ function setup() {
 
 		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
 			mkdir papirus
-			git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git $path/papirus
+			git clone https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git $PWD/papirus
 
 			if [ $apapirus = true ]; then
-				mv $path/papirus/Papirus/ /usr/share/icons/
+				mv $PWD/papirus/Papirus/ /usr/share/icons/
 				echo "Installed Papirus"
 			fi
 
 			if [ $apapirusdark = true ]; then
-				mv $path/papirus/Papirus-Dark/ /usr/share/icons/
+				mv $PWD/papirus/Papirus-Dark/ /usr/share/icons/
 				echo "Installed Papirus-Dark"
 			fi
 
-			rm -R $path/papirus
+			rm -R $PWD/papirus
 		fi
 	fi
 
@@ -90,12 +121,12 @@ function setup() {
 
 		if [ $answer = "y" ] || [ $answer = "Y" ] || [ $answer = "" ]; then
 			mkdir sanfranfont
-			git clone https://github.com/AppleDesignResources/SanFranciscoFont.git $path/sanfranfont
+			git clone https://github.com/AppleDesignResources/SanFranciscoFont.git $PWD/sanfranfont
 
-			mv $path/sanfranfont/* /usr/share/fonts/OTF/
+			mv $PWD/sanfranfont/* /usr/share/fonts/OTF/
 			echo "Installed San Francisco Display"
 
-			rm -R $path/sanfranfont
+			rm -R $PWD/sanfranfont
 		fi
 	else
 		echo "San Francisco Display already present"
@@ -107,7 +138,8 @@ function uninstall() {
 	arcs=("OSX-Arc-Shadow" "OSX-Arc-White")
 	sanfran=("SanFranciscoDisplay-Bold.otf" "SanFranciscoDisplay-Heavy.otf" "SanFranciscoDisplay-Light.otf" "SanFranciscoDisplay-Medium.otf" "SanFranciscoDisplay-Regular.otf" "SanFranciscoDisplay-Semibold.otf" "SanFranciscoDisplay-Thin.otf" "SanFranciscoDisplay-Ultralight.otf" "SanFranciscoText-Bold.otf" "SanFranciscoText-BoldItalic.otf" "SanFranciscoText-Heavy.otf" "SanFranciscoText-HeavyItalic.otf" "SanFranciscoText-Light.otf" "SanFranciscoText-LightItalic.otf" "SanFranciscoText-Medium.otf" "SanFranciscoText-MediumItalic.otf" "SanFranciscoText-Regular.otf" "SanFranciscoText-RegularItalic.otf" "SanFranciscoText-Semibold.otf" "SanFranciscoText-SemiboldItalic.otf")
 
-	path=`pwd -P`
+	dmscript="/usr/bin/desktop-mode"
+	dmfiles="/home/$SUDO_USER/.desktop-modes/"
 
 	ushadow="/usr/share/themes/OSX-Arc-Shadow/"
 	uwhite="/usr/share/themes/OSX-Arc-White/"
@@ -158,10 +190,26 @@ function uninstall() {
 
 		echo "Removed ${arcs[1]}"
 	fi
+
+	if [ ! -d dmfiles ]; then
+		echo "Desktop Mode files already uninstalled"
+	else
+		rm -rf $dmfiles
+
+		echo "Removed Desktop Mode files"
+	fi
+
+	if [ ! -f $dmscript ]; then
+		echo "Desktop Mode script already uninstalled"
+	else
+		rm $dmscript
+
+		echo "Removed Desktop Mode script"
+	fi
 }
 
 function setmode() {
-	cmode=$(</home/$USER/bin/desktop-modes/mode.txt)
+	cmode=$(</home/$USER/.desktop-modes/mode.txt)
 
 	tint2="/home/$USER/.config/tint2/tint2rc"
 	xfceterminal="/home/$USER/.config/xfce4/terminal/terminalrc"
@@ -169,7 +217,7 @@ function setmode() {
 	if [ $1 = $cmode ]; then
 		echo "$1 already activated"
 	else
-		sed -i "s/$cmode/$1/g" /home/$USER/bin/desktop-modes/mode.txt
+		sed -i "s/$cmode/$1/g" /home/$USER/.desktop-modes/mode.txt
 		
 		mode=()
 
@@ -183,12 +231,12 @@ function setmode() {
 		xfconf-query -c xfwm4 -p /general/theme -s "${mode[1]}"
 
 		if [ -f $tint2 ]; then
-			cat "/home/$USER/bin/desktop-modes/tint2/$1-mode.tint2rc" > $tint2
+			cat "/home/$USER/.desktop-modes/tint2/$1-mode.tint2rc" > $tint2
 			killall -SIGUSR1 tint2
 		fi
 
 		if [ -f $xfceterminal ]; then
-			cat "/home/$USER/bin/desktop-modes/xfce4/$1-mode" > $xfceterminal
+			cat "/home/$USER/.desktop-modes/xfce4/$1-mode" > $xfceterminal
 		fi
 
 		echo "$1 mode activated"
