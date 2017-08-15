@@ -61,20 +61,21 @@ border_color_pressed = #000000 100
 #-------------------------------------
 # Panel
 panel_items = SLC
-panel_size = 300 40
+panel_size = 100% 40
 panel_margin = 20 20
 panel_padding = 8 10 4
 panel_background_id = 1
 wm_menu = 1
 panel_dock = 0
 panel_position = top right horizontal
-panel_layer = top
-panel_monitor = all
-primary_monitor_first = 0
+panel_layer = normal
+panel_monitor = 1
+primary_monitor_first = 1
+panel_shrink = 1
 autohide = 0
 autohide_show_timeout = 0
 autohide_hide_timeout = 0.5
-autohide_height = 2
+autohide_height = 40
 strut_policy = none
 panel_window_name = nizarmah.me
 disable_transparency = 0
@@ -128,7 +129,7 @@ systray_padding = 8 0 8
 systray_background_id = 0
 systray_sort = ascending
 systray_icon_size = 22
-systray_icon_asb = 80 0 -100
+systray_icon_asb = 100 0 -50
 systray_monitor = 1
 
 #-------------------------------------
@@ -164,7 +165,7 @@ clock_dwheel_command =
 #-------------------------------------
 # Battery
 battery_tooltip = 1
-battery_low_status = 10
+battery_low_status = 20
 battery_low_cmd = notify-send "Battery Low"
 bat1_font = San Francisco Display Bold 9
 bat2_font = San Francisco Display 0
